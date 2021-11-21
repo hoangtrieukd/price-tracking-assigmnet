@@ -2,8 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import _ from 'lodash';
 import axios from 'axios';
-import { IconButton, TextField } from '@mui/material';
+import { IconButton, Tab, TextField } from '@mui/material';
 import { Star, StarOutline } from '@mui/icons-material';
+import { Box } from '@mui/system';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { ENV } from '../../utils/env';
 
 export default function MarketScreen() {
@@ -14,6 +16,7 @@ export default function MarketScreen() {
   const [sparkline] = useState(false);
   const [query, setQuery] = useState('');
   const [watchList, setWatchList] = useState([]);
+  const [tabIndex, setTabIndex] = useState('1');
 
   const fetchList = useCallback(async () => {
     try {
@@ -56,10 +59,17 @@ export default function MarketScreen() {
       field: 'symbol',
       headerName: 'Name',
       width: 130,
+      renderCell: (params) => <b>{params.value}</b>,
+    },
+    {
+      field: 'name',
+      headerName: 'Fullname',
+      width: 130,
       renderCell: (params) => {
         const isEnable = watchList.find((item) => item.id === params.id);
         return (
           <div style={{ display: 'flex', textAlign: 'center' }}>
+            <b>{params.value}</b>
             <IconButton
               color='primary'
               size='small'
@@ -71,7 +81,6 @@ export default function MarketScreen() {
                 <StarOutline fontSize='small' />
               )}
             </IconButton>
-            {params.value}
           </div>
         );
       },
@@ -85,23 +94,56 @@ export default function MarketScreen() {
   ];
 
   return (
-    <div>
+    <div
+      style={{
+        maxWidth: 1200,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <TextField
         variant='outlined'
         placeholder='Search'
         value={query}
         onChange={(event) => setQuery(event.target.value)}
+        style={{ alignSelf: 'flex-end', margin: 5 }}
       />
 
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={filterCoinList()}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          isRowSelectable={() => false}
-        />
-      </div>
+      <Box sx={{ width: '100%' }}>
+        <TabContext value={tabIndex}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList
+              onChange={(event, newIndex) => setTabIndex(newIndex)}
+              aria-label='market tab'
+            >
+              <Tab label='All Cryptos' value='1' />
+              <Tab label='Favorites' value='2' />
+            </TabList>
+          </Box>
+          <TabPanel value='1'>
+            <div style={{ height: 600, width: '100%' }}>
+              <DataGrid
+                rows={filterCoinList()}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                isRowSelectable={() => false}
+              />
+            </div>
+          </TabPanel>
+          <TabPanel value='2'>
+            <div style={{ height: 600, width: '100%' }}>
+              <DataGrid
+                rows={watchList}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                isRowSelectable={() => false}
+              />
+            </div>
+          </TabPanel>
+        </TabContext>
+      </Box>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import RouteContainer from './routes/RouteContainer';
+import './App.css';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='app'>
       <RouteContainer />
     </div>
   );
