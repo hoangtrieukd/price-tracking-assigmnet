@@ -93,6 +93,24 @@ export default function MarketScreen() {
     },
   ];
 
+  const favoriteTab = () => {
+    if (watchList.length) {
+      return (
+        <div style={{ height: 600, width: '100%' }}>
+          <DataGrid
+            rows={watchList}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            isRowSelectable={() => false}
+          />
+        </div>
+      );
+    }
+
+    return <div>No watchlist</div>;
+  };
+
   return (
     <div
       style={{
@@ -131,17 +149,7 @@ export default function MarketScreen() {
               />
             </div>
           </TabPanel>
-          <TabPanel value='2'>
-            <div style={{ height: 600, width: '100%' }}>
-              <DataGrid
-                rows={watchList}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                isRowSelectable={() => false}
-              />
-            </div>
-          </TabPanel>
+          <TabPanel value='2'>{favoriteTab()}</TabPanel>
         </TabContext>
       </Box>
     </div>
