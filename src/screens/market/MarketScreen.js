@@ -7,6 +7,7 @@ import { Star, StarOutline } from '@mui/icons-material';
 import { Box } from '@mui/system';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { ENV } from '../../utils/env';
+import marketStyles from './assets/market_screen.module.scss';
 
 export default function MarketScreen() {
   const [coinList, setCoinList] = useState([]);
@@ -112,13 +113,7 @@ export default function MarketScreen() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 1200,
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div className={marketStyles.market_screen_wrapper}>
       <TextField
         variant='outlined'
         placeholder='Search'
