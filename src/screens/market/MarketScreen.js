@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import _ from 'lodash';
 import axios from 'axios';
 import { IconButton, TextField } from '@mui/material';
-import { StarOutline } from '@mui/icons-material';
+import { Star, StarOutline } from '@mui/icons-material';
 import { ENV } from '../../utils/env';
 
 export default function MarketScreen() {
@@ -56,18 +56,25 @@ export default function MarketScreen() {
       field: 'symbol',
       headerName: 'Name',
       width: 130,
-      renderCell: (params) => (
-        <div style={{ display: 'flex', textAlign: 'center' }}>
-          <IconButton
-            color='primary'
-            size='small'
-            onClick={() => onChangeWatchList(params)}
-          >
-            <StarOutline fontSize='small' />
-          </IconButton>
-          {params.value}
-        </div>
-      ),
+      renderCell: (params) => {
+        const isEnable = watchList.find((item) => item.id === params.id);
+        return (
+          <div style={{ display: 'flex', textAlign: 'center' }}>
+            <IconButton
+              color='primary'
+              size='small'
+              onClick={() => onChangeWatchList(params)}
+            >
+              {isEnable ? (
+                <Star fontSize='small' />
+              ) : (
+                <StarOutline fontSize='small' />
+              )}
+            </IconButton>
+            {params.value}
+          </div>
+        );
+      },
     },
     {
       field: 'current_price',
@@ -76,8 +83,6 @@ export default function MarketScreen() {
       width: 90,
     },
   ];
-
-  console.log('coin list', watchList);
 
   return (
     <div>
