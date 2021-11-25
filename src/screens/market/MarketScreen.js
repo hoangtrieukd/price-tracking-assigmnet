@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import _ from 'lodash';
 import axios from 'axios';
 import { IconButton, Tab, TextField } from '@mui/material';
 import { Star, StarOutline } from '@mui/icons-material';
@@ -8,6 +6,7 @@ import { Box } from '@mui/system';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { ENV } from '../../utils/env';
 import marketStyles from './assets/market_screen.module.scss';
+import DataGridCommon from '../../common/DataGridCommon/DataGridCommon';
 
 export default function MarketScreen() {
   const [coinList, setCoinList] = useState([]);
@@ -38,7 +37,7 @@ export default function MarketScreen() {
   }, [fetchList]);
 
   const filterCoinList = () => {
-    const coins = _.filter(coinList, (coin) => coin.symbol.includes(query));
+    const coins = coinList.filter((coin) => coin.symbol.includes(query));
     return coins;
   };
 
@@ -98,13 +97,7 @@ export default function MarketScreen() {
     if (watchList.length) {
       return (
         <div style={{ height: 600, width: '100%' }}>
-          <DataGrid
-            rows={watchList}
-            columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-            isRowSelectable={() => false}
-          />
+          <DataGridCommon rows={watchList} columns={columns} />
         </div>
       );
     }
@@ -135,13 +128,7 @@ export default function MarketScreen() {
           </Box>
           <TabPanel value='1'>
             <div style={{ height: 600, width: '100%' }}>
-              <DataGrid
-                rows={filterCoinList()}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                isRowSelectable={() => false}
-              />
+              <DataGridCommon rows={filterCoinList()} columns={columns} />
             </div>
           </TabPanel>
           <TabPanel value='2'>{favoriteTab()}</TabPanel>
