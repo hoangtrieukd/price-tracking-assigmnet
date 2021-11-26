@@ -39,8 +39,15 @@ export default function MarketScreen() {
     }
   }, [vsCurrency, order, perPage, sparkline]);
 
+  useEffect(
+    () => fetchList(),
+    // eslint-disable-next-line
+    []
+  );
+
   useEffect(() => {
-    fetchList();
+    const intervalId = setInterval(() => fetchList(), ENV.FETCH_PRICE_INTERVAL);
+    return () => clearInterval(intervalId);
   }, [fetchList]);
 
   const filterCoinList = () => {
@@ -65,7 +72,7 @@ export default function MarketScreen() {
     {
       field: 'symbol',
       headerName: 'Name',
-      width: 130,
+      width: 80,
       renderCell: (params) => <b>{params.value}</b>,
     },
     {
