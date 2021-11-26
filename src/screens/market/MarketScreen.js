@@ -24,7 +24,7 @@ export default function MarketScreen() {
         `${ENV.GECKO_API}/coins/markets?vs_currency=${vsCurrency}&order=${order}&per_page=${perPage}&sparkline=${sparkline}`
       );
       const { status, data } = result;
-      if (status === 200) {
+      if (status === 200 && data?.length) {
         setCoinList(data);
       }
     } catch (e) {
