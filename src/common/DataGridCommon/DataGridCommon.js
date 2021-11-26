@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
 
-function DataGridCommon(props) {
+const DataGridCommon = (props) => {
   const {
     rows,
     columns,
@@ -22,7 +22,7 @@ function DataGridCommon(props) {
       {...restProps}
     />
   );
-}
+};
 
 DataGridCommon.propTypes = {
   rows: PropTypes.array,
