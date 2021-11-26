@@ -13,6 +13,7 @@ import {
   TabPanelCommon,
 } from '../../common/tabCommon';
 import { TextFieldCommon } from '../../common/inputCommon';
+import useLocalStorage from '../../utils/hooks/useLocalStorage';
 
 export default function MarketScreen() {
   const [coinList, setCoinList] = useState([]);
@@ -21,7 +22,7 @@ export default function MarketScreen() {
   const [perPage] = useState(100);
   const [sparkline] = useState(false);
   const [query, setQuery] = useState('');
-  const [watchList, setWatchList] = useState([]);
+  const [watchList, setWatchList] = useLocalStorage('favorites', []);
   const [tabIndex, setTabIndex] = useState('1');
 
   const fetchList = useCallback(async () => {
