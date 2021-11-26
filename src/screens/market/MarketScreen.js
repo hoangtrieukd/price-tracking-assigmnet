@@ -1,12 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { IconButton, Tab, TextField } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Star, StarOutline } from '@mui/icons-material';
 import { Box } from '@mui/system';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { ENV } from '../../utils/env';
 import marketStyles from './assets/market_screen.module.scss';
-import DataGridCommon from '../../common/DataGridCommon/DataGridCommon';
+import DataGridCommon from '../../common/dataGridCommon/DataGridCommon';
+import {
+  TabCommon,
+  TabContextCommon,
+  TabListCommon,
+  TabPanelCommon,
+} from '../../common/tabCommon';
+import { TextFieldCommon } from '../../common/inputCommon';
 
 export default function MarketScreen() {
   const [coinList, setCoinList] = useState([]);
@@ -143,7 +149,7 @@ export default function MarketScreen() {
 
   return (
     <div className={marketStyles.market_screen_wrapper}>
-      <TextField
+      <TextFieldCommon
         variant='outlined'
         placeholder='Search'
         value={query}
@@ -152,23 +158,23 @@ export default function MarketScreen() {
       />
 
       <Box sx={{ width: '100%' }}>
-        <TabContext value={tabIndex}>
+        <TabContextCommon value={tabIndex}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList
+            <TabListCommon
               onChange={(event, newIndex) => setTabIndex(newIndex)}
               aria-label='market tab'
             >
-              <Tab label='All Cryptos' value='1' />
-              <Tab label='Favorites' value='2' />
-            </TabList>
+              <TabCommon label='All Cryptos' value='1' />
+              <TabCommon label='Favorites' value='2' />
+            </TabListCommon>
           </Box>
-          <TabPanel value='1'>
+          <TabPanelCommon value='1'>
             <div style={{ height: 600, width: '100%' }}>
               <DataGridCommon rows={filterCoinList()} columns={columns} />
             </div>
-          </TabPanel>
-          <TabPanel value='2'>{favoriteTab()}</TabPanel>
-        </TabContext>
+          </TabPanelCommon>
+          <TabPanelCommon value='2'>{favoriteTab()}</TabPanelCommon>
+        </TabContextCommon>
       </Box>
     </div>
   );
