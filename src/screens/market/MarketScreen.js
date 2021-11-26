@@ -28,7 +28,8 @@ export default function MarketScreen() {
   const fetchList = useCallback(async () => {
     try {
       const result = await axios.get(
-        `${ENV.GECKO_API}/coins/markets?vs_currency=${vsCurrency}&order=${order}&per_page=${perPage}&sparkline=${sparkline}`
+        `${ENV.GECKO_API}/coins/markets?vs_currency=${vsCurrency}&order=${order}&per_page=${perPage}&sparkline=${sparkline}`,
+        { headers: { 'cache-control': 'no-cache' } }
       );
       const { status, data } = result;
       if (status === 200 && data?.length) {
