@@ -91,6 +91,42 @@ export default function MarketScreen() {
       type: 'number',
       width: 90,
     },
+    {
+      field: 'price_change_percentage_24h',
+      headerName: '24h %',
+      type: 'number',
+      width: 90,
+    },
+    {
+      field: 'low_24h',
+      headerName: 'Low 24h',
+      type: 'number',
+      width: 90,
+    },
+    {
+      field: 'total_supply',
+      headerName: 'Total Supply',
+      type: 'number',
+      width: 150,
+    },
+    {
+      field: 'market_cap',
+      headerName: 'Market Cap',
+      type: 'number',
+      width: 150,
+    },
+    {
+      field: 'circulating_supply',
+      headerName: 'Circulating Supply',
+      type: 'number',
+      width: 150,
+    },
+    {
+      field: 'total_volume',
+      headerName: 'Total Volume',
+      type: 'number',
+      width: 150,
+    },
   ];
 
   const favoriteTab = () => {
