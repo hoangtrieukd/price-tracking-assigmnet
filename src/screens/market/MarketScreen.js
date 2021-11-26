@@ -5,7 +5,7 @@ import { Star, StarOutline } from '@mui/icons-material';
 import { Box } from '@mui/system';
 import { ENV } from '../../utils/env';
 import marketStyles from './assets/market_screen.module.scss';
-import DataGridCommon from '../../common/dataGridCommon/DataGridCommon';
+import { DataGridCommon } from '../../common/dataGridCommon/DataGridCommon';
 import {
   TabCommon,
   TabContextCommon,

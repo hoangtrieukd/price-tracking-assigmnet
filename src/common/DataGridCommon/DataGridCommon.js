@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
 
-const DataGridCommon = (props) => {
+export const DataGridCommon = (props) => {
   const {
     rows,
     columns,
@@ -37,5 +37,3 @@ DataGridCommon.defaultProps = {
   rowsPerPageOptions: [10],
   isRowSelectable: () => false,
 };
-
-export default DataGridCommon;
